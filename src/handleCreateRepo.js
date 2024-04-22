@@ -2,7 +2,7 @@ const handleCreateRepo = async () => {
   try {
     const response = await axios.post('https://api.github.com/user/repos', {
       name: 'YourNewRepositoryName',
-      description: 'Your repository description', //
+      description: 'Your repository description', 
       private: false, 
     }, {
       headers: {
