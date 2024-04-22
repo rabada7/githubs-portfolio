@@ -1,11 +1,10 @@
 import React from 'react';
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, Input } from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 const CreateRepoModal = ({ isOpen, onRequestClose }) => {
-  const handleCreateRepo = () => {
-   
-    console.log("Creating new repository...");
-    onRequestClose(); 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 
   };
 
   return (
@@ -15,16 +14,17 @@ const CreateRepoModal = ({ isOpen, onRequestClose }) => {
         <ModalHeader>Create New Repository</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Input placeholder="Repository Name" />
-          <Input placeholder="Description" mt="4" />
-          <Input placeholder="Public or Private" mt="4" />
+          <form onSubmit={handleSubmit}>
+            <FormControl>
+              <FormLabel>Repository Name</FormLabel>
+              <Input type="text" placeholder="Enter repository name" />
+            </FormControl>
+            {/* Add more form fields as needed */}
+            <Button mt="4" colorScheme="blue" type="submit">Create</Button>
+          </form>
         </ModalBody>
-
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleCreateRepo}>
-            Create
-          </Button>
-          <Button onClick={onRequestClose}>Cancel</Button>
+          <Button variant="ghost" onClick={onRequestClose}>Cancel</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
