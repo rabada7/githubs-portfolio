@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Heading, Text, Stack, Button, Input } from '@chakra-ui/react';
-import CreateRepoModal from './CreateRepoModal';
+import { Box, Heading, Text, Stack, Button, Input, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react';
 
 const RepoList = () => {
   const [repos, setRepos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRepo, setSelectedRepo] = useState(null);
+  const [updatedRepoName, setUpdatedRepoName] = useState('');
+  const [updatedRepoDescription, setUpdatedRepoDescription] = useState('');
 
   useEffect(() => {
     const fetchRepositories = async () => {
@@ -25,14 +27,29 @@ const RepoList = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleCreateRepo = (repoName) => {
+  const handleCreateRepo = () => {
     // Implement logic to create a new repository
-    console.log(`Creating new repository: ${repoName}`);
-    // Update the repositories state to include the new repository
-    setRepos([...repos, { name: repoName, id: Date.now() }]);
+    console.log('Creating new repository...');
   };
 
-  const handleCloseModal = () => {
+  const handleUpdateRepo = () => {
+    // Implement logic to update repository details
+    console.log('Updating repository...');
+  };
+
+  const handleDeleteRepo = () => {
+    // Implement logic to delete repository
+    console.log('Deleting repository...');
+  };
+
+  const openUpdateModal = (repo) => {
+    setSelectedRepo(repo);
+    setUpdatedRepoName(repo.name);
+    setUpdatedRepoDescription(repo.description);
+    setIsModalOpen(true);
+  };
+
+  const closeUpdateModal = () => {
     setIsModalOpen(false);
   };
 
@@ -50,19 +67,35 @@ const RepoList = () => {
         {repos.map(repo => (
           <Box key={repo.id} p="4" shadow="md" borderWidth="1px" rounded="md">
             <Heading as="h2" size="md">
-              <a href={repo.html_url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
+              <div>{repo.name}</div>
             </Heading>
             <Text mt="2">{repo.description}</Text>
             <Text mt="2">Language: {repo.language}</Text>
+            <Button mt="2" colorScheme="blue" onClick={() => openUpdateModal(repo)}>Update</Button>
+            <Button mt="2" colorScheme="red" onClick={() => handleDeleteRepo(repo)}>Delete</Button>
           </Box>
         ))}
       </Stack>
-      <Button mt="6" colorScheme="blue" onClick={() => setIsModalOpen(true)}>
+      <Button mt="6" colorScheme="blue" onClick={handleCreateRepo}>
         Create New Repository
       </Button>
 
-      {/* Render the modal component */}
-      <CreateRepoModal isOpen={isModalOpen} onRequestClose={handleCloseModal} onCreate={handleCreateRepo} />
+      {/* Update Repository Modal */}
+      <Modal isOpen={isModalOpen} onClose={closeUpdateModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit Repository</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Input mb="4" value={updatedRepoName} onChange={(e) => setUpdatedRepoName(e.target.value)} />
+            <Input value={updatedRepoDescription} onChange={(e) => setUpdatedRepoDescription(e.target.value)} />
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={handleUpdateRepo}>Update</Button>
+            <Button onClick={closeUpdateModal}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
