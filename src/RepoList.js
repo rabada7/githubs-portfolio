@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Box, Heading, Text, Stack, Button, Input, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react';
 import { handleUpdateRepo } from './UpdateRepoModal';
 import CreateRepoModal from './CreateRepoModal'; 
-import handleCreateRepo from './handleCreateRepo';
 
 const RepoList = () => {
   const [repos, setRepos] = useState([]);
@@ -79,7 +78,7 @@ const RepoList = () => {
           </Box>
         ))}
       </Stack>
-      <Button mt="6" colorScheme="blue" onClick={handleCreateRepo}>
+     <Button mt="6" colorScheme="blue" onClick={handleCreateRepo}>
         Create New Repository
       </Button>
 
