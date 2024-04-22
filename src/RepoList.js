@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Heading, Text, Stack, Button, Input } from '@chakra-ui/react';
-import CreateRepoModal from './CreateRepoModal'; 
+import CreateRepoModal from './CreateRepoModal';
 
 const RepoList = () => {
   const [repos, setRepos] = useState([]);
@@ -25,16 +25,12 @@ const RepoList = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredRepos = repos.filter(repo =>
-    repo.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   const handleCreateRepo = () => {
-    setIsModalOpen(true); 
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); 
+    setIsModalOpen(false);
   };
 
   return (
@@ -48,15 +44,7 @@ const RepoList = () => {
         mb="4"
       />
       <Stack spacing="4">
-        {filteredRepos.map(repo => (
-          <Box key={repo.id} p="4" shadow="md" borderWidth="1px" rounded="md">
-            <Heading as="h2" size="md">
-              <a href={repo.html_url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
-            </Heading>
-            <Text mt="2">{repo.description}</Text>
-            <Text mt="2">Language: {repo.language}</Text>
-          </Box>
-        ))}
+        {/* Render filtered repositories */}
       </Stack>
       <Button mt="6" colorScheme="blue" onClick={handleCreateRepo}>
         Create New Repository
