@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ChakraProvider, Box, Container } from '@chakra-ui/react';
+import RepoList from './RepoList';
+import RepoDetail from './RepoDetail';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <Router>
+        <Container maxW="xl" py="8">
+          <Box bg="black" p="6" borderRadius="md" boxShadow="lg" color="white">
+            <Routes>
+              <Route path="/" element={<RepoList />} />
+              <Route path="/repo/:repoName" element={<RepoDetail />} />
+            </Routes>
+          </Box>
+        </Container>
+      </Router>
+    </ChakraProvider>
   );
 }
 

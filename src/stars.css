@@ -1,0 +1,52 @@
+/* stars.css */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #000;
+    overflow: hidden;
+  }
+  
+  .stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+  }
+  
+  .stars::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(white 2%, transparent 3%);
+    background-size: 3px 3px;
+  }
+  
+  .stars::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(white 1%, transparent 1%);
+    background-size: 7px 7px;
+  }
+  
+  .stars2 {
+    animation: animateStars 50s linear infinite;
+  }
+  
+  @keyframes animateStars {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-100%);
+    }
+  }
+  
