@@ -25,8 +25,11 @@ const RepoList = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleCreateRepo = () => {
-    setIsModalOpen(true);
+  const handleCreateRepo = (repoName) => {
+    // Implement logic to create a new repository
+    console.log(`Creating new repository: ${repoName}`);
+    // Update the repositories state to include the new repository
+    setRepos([...repos, { name: repoName, id: Date.now() }]);
   };
 
   const handleCloseModal = () => {
@@ -44,14 +47,22 @@ const RepoList = () => {
         mb="4"
       />
       <Stack spacing="4">
-        {/* Render filtered repositories */}
+        {repos.map(repo => (
+          <Box key={repo.id} p="4" shadow="md" borderWidth="1px" rounded="md">
+            <Heading as="h2" size="md">
+              <a href={repo.html_url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
+            </Heading>
+            <Text mt="2">{repo.description}</Text>
+            <Text mt="2">Language: {repo.language}</Text>
+          </Box>
+        ))}
       </Stack>
-      <Button mt="6" colorScheme="blue" onClick={handleCreateRepo}>
+      <Button mt="6" colorScheme="blue" onClick={() => setIsModalOpen(true)}>
         Create New Repository
       </Button>
 
       {/* Render the modal component */}
-      <CreateRepoModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
+      <CreateRepoModal isOpen={isModalOpen} onRequestClose={handleCloseModal} onCreate={handleCreateRepo} />
     </Box>
   );
 };
